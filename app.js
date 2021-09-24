@@ -86,29 +86,39 @@ const galleryRef = document.querySelector('.gallery');
 const modal = document.querySelector('.js-lightbox');
 const modalImg = document.querySelector('.lightbox__image');
 const closeModalBtn = document.querySelector('.lightbox__button');
+const modalBtn = document.querySelector('button[data-action="close-lightbox"]');
+
 const makeCardsForGallery = galleryItems.map(list)
 .join('');
 
 galleryRef.insertAdjacentHTML('beforeend', makeCardsForGallery);
-galleryRef.addEventListener('click', openModal)
+galleryRef.addEventListener('click', openModal);
+
+
 console.log(galleryRef);
 
 function openModal(e){
 e.preventDefault()
 if(e.target.nodeName !== 'IMG'){
-  return;}
+return;}
 modal.classList.add('is-open');
 modalImg.src = e.target.dataset.source
 }
 
 closeModalBtn.addEventListener('click', onCloseModal);
-function onCloseModal(){
+function onCloseModal(element){
+
 modal.classList.remove('is-open');
+modalImg.src = '';
+
+
 }
 
+
 document.addEventListener('keydown', function(e) {
+  
   if (e.key === 'Escape') {
-  modal.classList.remove('is-open')
+   onCloseModal()
   }
   });
 
